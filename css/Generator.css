@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+header{
+    background-color: orange;
+    height: 5rem;
+    width:100%;
+    align-items: center;
+}
+
+.logo{
+    height: 2rem;
+    margin: 1.5rem;
+}
+
+.generator{
+    display: flex;
+}
+
+.canvas-container{
+    background-color: indianred;
+    width: 800px;
+    height:800px;
+}
+
+canvas {
+    display: block;
+    margin: 0;
+    background-color: rgb(243, 40, 40);
+}
+
+.gallery{
+    background-color: grey;
+    height: 800px;
+    width: 1000px;
+}
+
+/* HELPERS: */
+.hidden{
+    display: none;
+}
