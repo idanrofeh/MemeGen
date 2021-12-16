@@ -7,14 +7,119 @@
 
 <body onload="init()">
     <header><img class="logo" src="LOGO/LOGO.png"></header>
-    <div class="generator">
-        <div class="generator-menu"></div>
-        <div class="canvas-container">
-            <canvas id="my-canvas" height="800" width="800"></canvas>
+    <div class="generator hidden">
+        <!-- <div class="canvas-container"> -->
+        <canvas id="my-canvas" height="670" width="900"></canvas>
+        <!-- </div> -->
+        <div class="control-box">
+            <div class="row first">
+                <label class="btn" class="txt" for="txt">Enter Text:
+                    <input type="text" id="txt" name="txt" onchange="setLineTxt(this.value);" />
+                </label>
+            </div>
+            <div class="row second">
+                <button class="btn" onclick="onSwitchLine()">Switch Lines ⮁</button>
+                <button class="btn" onclick="onRenoveLine()">🗑️</button>
+            </div>
+            <div class="row third">
+                <label class="btn">Font Size: <input type="number" name="font-size"
+                        onchange="onSetFontSize(this.value)" /></label>
+                <button class="btn" onclick="onUpload()">Upload</button>
+            </div>
+            <div class="row fourth">
+                <select id="fonts" name="fonts" onchange="onSetFont(`${this.value}`)">
+                    <option value="Impact">Impact</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Cambria">Cambria</option>
+                    <option value="Verdana">Verdana</option>
+                </select>
+                <div class="row optional">
+                    <label class="btn">Text Color: <input type="color" name="txt-color"
+                            onchange="setTextColor(this.value)" /></label>
+                    <label class="btn">Stroke Color: <input type="color" name="storke-color"
+                            onchange="setStrokeColor(this.value)" /></label>
+                </div>
+            </div>
+            <div class="row fifth">
+                <a href="#" class="btn" onclick="onDownload(this)" download="my-img.jpg">Download Meme</a>
+                <button class="btn" onclick="onShare()">Share</button>
+            </div>
         </div>
     </div>
-    <div class="gallery hidden"></div>
+    <div class="share-window-container hidden">
+        <div class="share-window">
+            <a href="#" class="share-btn" onclick="onDownload(this)" download="my-img.jpg">Download Meme</a><br>
+            <button class="share-btn" onclick="onSave()">Save</button><br>
+            <button class="share-btn" onclick="onFacebookShare()">Share</button>
+            <h5 class="uploading-message"></h5>
+            <div class="facebook-share"></div>
+        </div>
+    </div>
+    <div class="gallery">
+        <div class="img-container">
+            <img class="meme-img" id=1 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/1.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=2 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/2.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=3 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/3.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=4 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/4.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=5 onclick="onImgSelect(this.id)" src='meme-imgs (square)/5.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=6 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/6.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=7 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/7.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=8 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/8.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=9 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/9.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=10 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/10.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=12 onclick="onImgSelect(this.id)" src='meme-imgs (square)/12.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=13 onclick="onImgSelect(this.id)" src='meme-imgs (square)/13.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=14 onclick="onImgSelect(this.id)" src='meme-imgs (square)/14.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=15 onclick="onImgSelect(this.id)" src='meme-imgs (square)/15.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=16 onclick="onImgSelect(this.id)" src='meme-imgs (square)/16.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=17 onclick="onImgSelect(this.id)" src='meme-imgs (square)/17.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=18 onclick="onImgSelect(this.id)" src='meme-imgs (square)/18.jpg'> -->
+        </div>
+    </div>
+    <div class="about">
+        <img src="img/idan.jpg">
+        <div class="about-txt">
+            <h1>Idan Rofeh</h1>
+            <h4>is a student in the Coding Academy Full-Stack Developers Bootcamp course</h4>
+        </div>
+    </div>
+    <div class="copyrights">
+        <img class="logo" src="LOGO/LOGO.png">all rights reserved 2021
+    </div>
     <script src="js/Generator.service.storage.js"></script>
+    <script src="js/Gallery.controller.js"></script>
     <script src="js/Generator.service.js"></script>
     <script src="js/Generator.controller.js"></script>
 </body>
