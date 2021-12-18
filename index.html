@@ -5,39 +5,48 @@
     <link rel="stylesheet" href="css/Generator.css">
 </head>
 
-<body onload="init()">
-    <header><img class="logo" src="LOGO/LOGO.png"></header>
+<body>
+    <header>
+        <img class="logo header-logo" src="LOGO/LOGO.png">
+        <div class="nav">
+            <div class="nav-mobile"> ☰ </div>
+            <div class="nav-gallery hidden" onclick="renderGallery()">Gallery</div>
+            <div class="nav-saved hidden" onclick="renderSavedMemes()">Saved Memes</div>
+        </div>
+    </header>
     <div class="generator hidden">
-        <!-- <div class="canvas-container"> -->
         <canvas id="my-canvas" height="670" width="900"></canvas>
-        <!-- </div> -->
         <div class="control-box">
             <div class="row first">
-                <label class="btn" class="txt" for="txt">Enter Text:
-                    <input type="text" id="txt" name="txt" onchange="setLineTxt(this.value);" />
+                <label class="btn" onclick="startEdit()" class="txt" for="txt">Enter Text:
+                    <input class="line-txt" type="text" id="txt" name="txt"
+                        onkeyup="onSetTextProperty('txt',this.value);" />
                 </label>
             </div>
             <div class="row second">
-                <button class="btn" onclick="onSwitchLine()">Switch Lines ⮁</button>
-                <button class="btn" onclick="onRenoveLine()">🗑️</button>
+                <button class="btn" onclick="onMoveLine(-20)"> ↑ </button>
+                <button class="btn" onclick="onMoveLine(20)"> ↓ </button>
+                <button class="btn" onclick="onSwitchLine()">Switch Lines</button>
+                <button class="btn" onclick="onRemoveLine()">🗑️</button>
             </div>
             <div class="row third">
-                <label class="btn">Font Size: <input type="number" name="font-size"
-                        onchange="onSetFontSize(this.value)" /></label>
-                <button class="btn" onclick="onUpload()">Upload</button>
+                <label class="btn">Font Size: <input type="number" id='text-size' class="txt-size" value='40'
+                        onclick="startEdit()" onchange="onSetTextProperty('size' ,this.value)" /></label>
+                <button class="btn" onclick="onAddLine()"> + </button>
             </div>
             <div class="row fourth">
-                <select id="fonts" name="fonts" onchange="onSetFont(`${this.value}`)">
+                <select class='input-font' id="font" onclick="startEdit()"
+                    onchange="onSetTextProperty('font' ,this.value)">
                     <option value="Impact">Impact</option>
                     <option value="Arial">Arial</option>
                     <option value="Cambria">Cambria</option>
                     <option value="Verdana">Verdana</option>
                 </select>
                 <div class="row optional">
-                    <label class="btn">Text Color: <input type="color" name="txt-color"
-                            onchange="setTextColor(this.value)" /></label>
-                    <label class="btn">Stroke Color: <input type="color" name="storke-color"
-                            onchange="setStrokeColor(this.value)" /></label>
+                    <label class="btn" onclick="startEdit()">Text Color: <input type="color" id="txt-color"
+                            value="#ffffff" onchange="onSetTextProperty('text-color' ,this.value)" /></label>
+                    <label class="btn" onclick="startEdit()">Stroke Color: <input type="color" id="stroke-color"
+                            onchange="onSetTextProperty('stroke-color' ,this.value)" /></label>
                 </div>
             </div>
             <div class="row fifth">
@@ -56,35 +65,46 @@
         </div>
     </div>
     <div class="gallery">
-        <div class="img-container">
-            <img class="meme-img" id=1 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/1.jpg'>
+        <div class="search-bar">
+            <div class="search-logo">🔎 <span>Search Images</span></div>
+            <input class="search-input" list="browsers">
+            <datalist id="browsers">
+                <option value="Edge">
+                <option value="Firefox">
+                <option value="Chrome">
+                <option value="Opera">
+                <option value="Safari">
+            </datalist>
         </div>
         <div class="img-container">
-            <img class="meme-img" id=2 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/2.jpg'>
+            <img class="meme-img" id=1 onclick="onImgSelect(this.id)" src='meme-imgs (square)/1.jpg'>
         </div>
         <div class="img-container">
-            <img class="meme-img" id=3 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/3.jpg'>
+            <img class="meme-img" id=2 onclick="onImgSelect(this.id)" src='meme-imgs (square)/2.jpg'>
         </div>
         <div class="img-container">
-            <img class="meme-img" id=4 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/4.jpg'>
+            <img class="meme-img" id=3 onclick="onImgSelect(this.id)" src='meme-imgs (square)/3.jpg'>
+        </div>
+        <div class="img-container">
+            <img class="meme-img" id=4 onclick="onImgSelect(this.id)" src='meme-imgs (square)/4.jpg'>
         </div>
         <div class="img-container">
             <img class="meme-img" id=5 onclick="onImgSelect(this.id)" src='meme-imgs (square)/5.jpg'>
         </div>
         <div class="img-container">
-            <img class="meme-img" id=6 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/6.jpg'>
+            <img class="meme-img" id=6 onclick="onImgSelect(this.id)" src='meme-imgs (square)/6.jpg'>
         </div>
         <div class="img-container">
-            <img class="meme-img" id=7 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/7.jpg'>
+            <img class="meme-img" id=7 onclick="onImgSelect(this.id)" src='meme-imgs (square)/7.jpg'>
         </div>
         <div class="img-container">
-            <img class="meme-img" id=8 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/8.jpg'>
+            <img class="meme-img" id=8 onclick="onImgSelect(this.id)" src='meme-imgs (square)/8.jpg'>
         </div>
         <div class="img-container">
-            <img class="meme-img" id=9 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/9.jpg'>
+            <img class="meme-img" id=9 onclick="onImgSelect(this.id)" src='meme-imgs (square)/9.jpg'>
         </div>
         <div class="img-container">
-            <img class="meme-img" id=10 onclick="onImgSelect(this.id)" src='meme-imgs (various aspect ratios)/10.jpg'>
+            <img class="meme-img" id=10 onclick="onImgSelect(this.id)" src='meme-imgs (square)/10.jpg'>
         </div>
         <div class="img-container">
             <img class="meme-img" id=12 onclick="onImgSelect(this.id)" src='meme-imgs (square)/12.jpg'>
@@ -108,6 +128,8 @@
             <img class="meme-img" id=18 onclick="onImgSelect(this.id)" src='meme-imgs (square)/18.jpg'> -->
         </div>
     </div>
+    <div class="saved-memes hidden">
+    </div>
     <div class="about">
         <img src="img/idan.jpg">
         <div class="about-txt">
@@ -116,7 +138,7 @@
         </div>
     </div>
     <div class="copyrights">
-        <img class="logo" src="LOGO/LOGO.png">all rights reserved 2021
+        <img class="logo footer-logo" src="LOGO/LOGO.png">all rights reserved 2021
     </div>
     <script src="js/Generator.service.storage.js"></script>
     <script src="js/Gallery.controller.js"></script>

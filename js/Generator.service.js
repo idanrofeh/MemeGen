@@ -1,59 +1,76 @@
 'use strict';
 
 var gMeme;
-
-var gKeywordSearchCountMap = {};
+var gIsEdit = false;
+var gSavedMemes;
 
 function getMeme(imgId) {
     gMeme = {
         selectedImgId: +imgId,
         selectedLineIdx: 0,
         lines:
-            [{ txt: 'Enter Text', size: 40, align: 'center', 'text-color': 'white', 'stroke-color': 'black', font: 'Impact' }]
+            [{
+                txt: 'Enter Text', size: 40, align: 'center', 'text-color': '#ffffff', 'stroke-color': '#000000', font: 'Impact'
+            }]
     }
-    renderMeme();
 }
 
-function setLineTxt(text) {
-    if (!gMeme.lines.length) {
-        console.log('Hi')
-        gMeme.selectedLineIdx = 0;
-        gMeme.lines[0] = { txt: 'Enter Text', size: 40, align: 'center', 'text-color': 'white', 'stroke-color': 'black', font: 'Impact' };
-    }
-    gMeme.lines[gMeme.selectedLineIdx].txt = text;
-    renderMeme();
+function addLinePos() {
+    gMeme.lines[0].pos = { x: gCanvas.width / 2, y: gCanvas.height * 0.1 };
 }
 
 function switchLines() {
     if (gMeme.lines.length === 1) {
-        var line2 = { txt: 'Enter Text', size: 40, align: 'center', color: 'white', 'border-color': 'black' };
+        var line2 = { txt: 'Enter Text', size: 40, align: 'center', 'text-color': '#ffffff', 'stroke-color': '#000000', font: 'Impact', pos: { x: gCanvas.width / 2, y: gCanvas.height * 0.9 } };
         gMeme.lines.push(line2);
         gMeme.selectedLineIdx = 1;
     }
-    else if (gMeme.selectedLineIdx === 0) {
-        gMeme.selectedLineIdx = 1;
+    else {
+        gMeme.selectedLineIdx++;
+        if (gMeme.selectedLineIdx > gMeme.lines.length - 1) gMeme.selectedLineIdx = 0;
     }
-    else gMeme.selectedLineIdx = 0;
-}
-
-function setFontSize(size) {
-    gMeme.lines[gMeme.selectedLineIdx].size = size;
-    console.log(gMeme);
+    var selectedLine = gMeme.lines[gMeme.selectedLineIdx];
+    document.getElementById('txt').value = selectedLine.txt;
+    document.getElementById('stroke-color').value = selectedLine['stroke-color'];
+    document.getElementById('txt-color').value = selectedLine['text-color'];
+    document.getElementById('text-size').value = selectedLine.size;
+    document.getElementById('font').value = selectedLine.font;
 }
 
 function removeLine() {
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
 }
 
-function setFont(font) {
-    gMeme.lines[gMeme.selectedLineIdx].font = font;
+function moveLine(value) {
+    var line = gMeme.lines[gMeme.selectedLineIdx];
+    line.pos.y += value;
+    renderMeme();
+}
+
+function setTextProperty(property, value) {
+    if (!gMeme.lines.length) return;
+    var selectedLine = gMeme.lines[gMeme.selectedLineIdx];
+    selectedLine[`${property}`] = value;
+}
+
+function addLine() {
+    var newLine = { txt: 'Enter Text', size: 40, align: 'center', 'text-color': '#ffffff', 'stroke-color': '#000000', font: 'Impact' };
+    if (gMeme.lines.length === 1) {
+        newLine.pos = { x: gCanvas.width / 2, y: gCanvas.height * 0.9 };
+        gMeme.lines.push(newLine);
+        gMeme.selectedLineIdx = 1;
+    } else if (gMeme.lines.length > 1) {
+        newLine.pos = { x: gCanvas.width / 2, y: gCanvas.height / 2 };
+        gMeme.lines.push(newLine);
+        gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    }
 }
 
 function uploadImg() {
     const imgDataUrl = gCanvas.toDataURL("image/jpeg");
 
     function onSuccess(uploadedImgUrl) {
-        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl);
         document.querySelector('h5').innerText += `Your photo is available here: ${uploadedImgUrl}`;
 
         document.querySelector('.facebook-share').innerHTML = `
@@ -79,6 +96,6 @@ function doUploadImg(imgDataUrl, onSuccess) {
             onSuccess(url)
         })
         .catch((err) => {
-            console.error(err)
+            console.error(err);
         })
 }
