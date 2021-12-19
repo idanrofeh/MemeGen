@@ -67,7 +67,7 @@ function focusEditedLine() {
 
 function cleanInputs() {
     var defaultLine = {
-        txt: 'Enter Text',
+        txt: '',
         size: '40',
         font: 'Impact',
         'stroke-color': '#000000',

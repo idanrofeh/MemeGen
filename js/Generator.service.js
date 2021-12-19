@@ -56,6 +56,7 @@ function removeLine() {
     gIsEdit = true;
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
     gMeme.selectedLineIdx--;
+    if (!gMeme.length) cleanInputs();
 }
 
 function moveLine(value) {
