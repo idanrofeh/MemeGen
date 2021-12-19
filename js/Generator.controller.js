@@ -4,8 +4,12 @@ var gCanvas;
 var gCtx;
 var gStartPos;
 
-function renderGenerator() {
+function init() {
     addListeners();
+    loadSearchedImgs();
+}
+
+function renderGenerator() {
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d');
     addLinePos();
@@ -51,7 +55,7 @@ function renderMeme() {
 }
 
 function focusEditedLine() {
-    if (!gMeme.lines) return;
+    if (!gMeme.lines.length) return;
     var selectedLine = gMeme.lines[gMeme.selectedLineIdx];
     let text = gCtx.measureText(`${selectedLine.txt}`);
     gCtx.strokeStyle = 'black';
@@ -77,7 +81,7 @@ function cleanInputs() {
 }
 
 function syncControls(line) {
-    document.getElementById('txt').value = line.txt;
+    if (!line.txt === 'EnterText') document.getElementById('txt').value = line.txt;
     document.getElementById('stroke-color').value = line['stroke-color'];
     document.getElementById('txt-color').value = line['text-color'];
     document.getElementById('text-size').value = line.size;
@@ -90,7 +94,6 @@ function onSetTextProperty(property, value) {
 }
 
 function onSwitchLine() {
-    if (!gMeme.lines.length) return;
     switchLines(selectedLine);
     var selectedLine = gMeme.lines[gMeme.selectedLineIdx];
     syncControls(selectedLine);
@@ -110,6 +113,7 @@ function onRemoveLine() {
 function onAddLine() {
     addLine();
     renderMeme();
+    document.getElementById('txt').value = ''
 }
 
 function drawText(line, x, y, ctx = gCtx) {
@@ -176,9 +180,4 @@ function onSavedMeme(id) {
     var idx = getSavedMemeIdx(id);
     gMeme = gSavedMemes[idx];
     renderGenerator();
-}
-
-function getSavedMemeIdx(id) {
-    var words = id.split('-');
-    return words[1];
 }

@@ -49,7 +49,6 @@ header{
 }
 
 /* GENERATOR */
-
 .generator-section{
     display: flex;
     flex-direction: column;
@@ -127,7 +126,6 @@ canvas {
   }
 
 /* GALLERY */
-
 .gallery{
     margin: auto;
     background-color: rgb(238, 238, 238);
@@ -180,7 +178,6 @@ canvas {
 .about{
     display: flex;
     flex-direction: column;
-    background-color: #fff;
     height: 70%;
     width:100vw;
     align-items: center;
@@ -205,8 +202,6 @@ canvas {
     margin-bottom: 0;
     margin-left:20px;
 }
-
-
 
 /* SHARE */
 .share-window-section{
@@ -296,8 +291,8 @@ canvas {
 
 /* TABLET */
  @media screen and (min-width: 900px){
-    /* GENERATOR */
 
+    /* GENERATOR */
     .generator-section{
         flex-direction: row;
         height: 85%;
@@ -357,7 +352,6 @@ canvas {
     }
 
     /* SAVED MEMES */
-
     .saved-meme{
         width:400px;
         height:400px;
@@ -366,6 +360,7 @@ canvas {
 
   /* DESKTOP */
  @media screen and (min-width: 1150px){
+
     /* GENERATOR */
     .control-box{
         margin-bottom:300px;

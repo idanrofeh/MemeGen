@@ -1,6 +1,5 @@
 'use strict';
 
-
 function loadSearchedImgs(searchKey = '') {
     var searchedImgs = getSearchedImgs(searchKey);
     renderSearchedImgs(searchedImgs);

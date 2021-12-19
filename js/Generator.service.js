@@ -40,11 +40,11 @@ function addLinePos() {
 }
 
 function switchLines() {
+    if (!gMeme.lines) return;
     gIsEdit = true;
     if (gMeme.lines.length === 1) {
-        var line2 = { txt: 'Enter Text', size: 40, align: 'center', 'text-color': '#ffffff', 'stroke-color': '#000000', font: 'Impact', pos: { x: gCanvas.width / 2, y: gCanvas.height * 0.9 } };
-        gMeme.lines.push(line2);
-        gMeme.selectedLineIdx = 1;
+        addLine();
+        return true
     }
     else {
         gMeme.selectedLineIdx++;
@@ -78,7 +78,7 @@ function addLine() {
     var newLine = { txt: 'Enter Text', size: 40, align: 'center', 'text-color': '#ffffff', 'stroke-color': '#000000', font: 'Impact' };
     if (!gMeme.lines.length) {
         gMeme.lines[0] = newLine;
-        gMeme.selectedLineIdx = 0
+        gMeme.selectedLineIdx = 0;
         addLinePos();
     }
     else if (gMeme.lines.length === 1) {
@@ -90,6 +90,11 @@ function addLine() {
         gMeme.lines.push(newLine);
         gMeme.selectedLineIdx = gMeme.lines.length - 1;
     }
+}
+
+function getSavedMemeIdx(id) {
+    var words = id.split('-');
+    return words[1];
 }
 
 function uploadImg() {
@@ -125,3 +130,4 @@ function doUploadImg(imgDataUrl, onSuccess) {
             console.error(err);
         })
 }
+
