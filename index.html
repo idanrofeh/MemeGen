@@ -1,20 +1,21 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MemeGen-Generator</title>
     <link rel="stylesheet" href="css/Generator.css">
 </head>
 
-<body>
-    <header>
+<body onload="loadSearchedImgs()">
+    <header hidden>
         <img class="logo header-logo" src="LOGO/LOGO.png">
         <div class="nav">
-            <div class="nav-mobile"> ☰ </div>
-            <div class="nav-gallery hidden" onclick="renderGallery()">Gallery</div>
-            <div class="nav-saved hidden" onclick="renderSavedMemes()">Saved Memes</div>
+            <div class="nav-gallery" onclick="renderGallery()">Gallery</div>
+            <div class="nav-saved" onclick="renderSavedMemes()">Saved Memes</div>
         </div>
     </header>
-    <div class="generator hidden">
+
+    <div class="section generator-section hidden">
         <canvas id="my-canvas" height="670" width="900"></canvas>
         <div class="control-box">
             <div class="row first">
@@ -55,91 +56,60 @@
             </div>
         </div>
     </div>
-    <div class="share-window-container hidden">
+
+    <div class="section share-window-section hidden">
         <div class="share-window">
             <a href="#" class="share-btn" onclick="onDownload(this)" download="my-img.jpg">Download Meme</a><br>
             <button class="share-btn" onclick="onSave()">Save</button><br>
-            <button class="share-btn" onclick="onFacebookShare()">Share</button>
+            <button class="share-btn" onclick="onUpload()">Upload</button>
             <h5 class="uploading-message"></h5>
             <div class="facebook-share"></div>
         </div>
     </div>
-    <div class="gallery">
-        <div class="search-bar">
-            <div class="search-logo">🔎 <span>Search Images</span></div>
-            <input class="search-input" list="browsers">
-            <datalist id="browsers">
-                <option value="Edge">
-                <option value="Firefox">
-                <option value="Chrome">
-                <option value="Opera">
-                <option value="Safari">
-            </datalist>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=1 onclick="onImgSelect(this.id)" src='meme-imgs (square)/1.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=2 onclick="onImgSelect(this.id)" src='meme-imgs (square)/2.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=3 onclick="onImgSelect(this.id)" src='meme-imgs (square)/3.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=4 onclick="onImgSelect(this.id)" src='meme-imgs (square)/4.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=5 onclick="onImgSelect(this.id)" src='meme-imgs (square)/5.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=6 onclick="onImgSelect(this.id)" src='meme-imgs (square)/6.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=7 onclick="onImgSelect(this.id)" src='meme-imgs (square)/7.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=8 onclick="onImgSelect(this.id)" src='meme-imgs (square)/8.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=9 onclick="onImgSelect(this.id)" src='meme-imgs (square)/9.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=10 onclick="onImgSelect(this.id)" src='meme-imgs (square)/10.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=12 onclick="onImgSelect(this.id)" src='meme-imgs (square)/12.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=13 onclick="onImgSelect(this.id)" src='meme-imgs (square)/13.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=14 onclick="onImgSelect(this.id)" src='meme-imgs (square)/14.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=15 onclick="onImgSelect(this.id)" src='meme-imgs (square)/15.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=16 onclick="onImgSelect(this.id)" src='meme-imgs (square)/16.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=17 onclick="onImgSelect(this.id)" src='meme-imgs (square)/17.jpg'>
-        </div>
-        <div class="img-container">
-            <img class="meme-img" id=18 onclick="onImgSelect(this.id)" src='meme-imgs (square)/18.jpg'> -->
-        </div>
+
+    <div class="section gallery-section search-bar">
+        <label for="search-choice">🔎 Search Images</label>
+        <input onchange="loadSearchedImgs(this.value)" list="img-categories" id="search-choice" name="search-choice" />
+        <datalist id="img-categories">
+            <option value="baby">
+            <option value="animal">
+            <option value="politics">
+            <option value="funny">
+            <option value="israeli">
+            <option value="celebs">
+            <option value="movies">
+            <option value="party">
+            <option value="explaining">
+            <option value="aliens">
+            <option value="trump">
+            <option value="circus">
+            <option value="laughing">
+            <option value="boxing">
+            <option value="putin">
+            <option value="matrix">
+            <option value="wisdom">
+        </datalist>
     </div>
-    <div class="saved-memes hidden">
+
+    <div class="section gallery-section gallery">
     </div>
-    <div class="about">
+
+    <div class="section gallery-section about">
         <img src="img/idan.jpg">
         <div class="about-txt">
             <h1>Idan Rofeh</h1>
             <h4>is a student in the Coding Academy Full-Stack Developers Bootcamp course</h4>
         </div>
     </div>
-    <div class="copyrights">
+
+    <div class="section saved-memes-section hidden">
+    </div>
+
+
+    <div class="footer">
         <img class="logo footer-logo" src="LOGO/LOGO.png">all rights reserved 2021
     </div>
+
     <script src="js/Generator.service.storage.js"></script>
     <script src="js/Gallery.controller.js"></script>
     <script src="js/Generator.service.js"></script>
